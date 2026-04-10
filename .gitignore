@@ -32,6 +32,7 @@ ENV/
 # OS
 .DS_Store
 Thumbs.db
+*.bat
 
 # AWS credentials (never commit these!)
 .aws/credentials
