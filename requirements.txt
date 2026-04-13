@@ -4,7 +4,7 @@ numpy>=1.23.0
 
 # Database
 sqlalchemy>=2.0.0
-sqlite3
+# sqlite3
 
 # Statistical Analysis
 scipy>=1.10.0
@@ -12,8 +12,8 @@ statsmodels>=0.13.0
 scikit-learn>=1.2.0
 
 # AWS Integration
-boto3>=1.26.0
-botocore>=1.29.0
+# boto3>=1.26.0
+# botocore>=1.29.0
 
 # Web Framework & Visualization
 streamlit>=1.20.0
@@ -27,6 +27,6 @@ jupyter>=1.0.0
 ipython>=8.0.0
 
 # Development & Testing (optional)
-pytest>=7.2.0
+# pytest>=7.2.0
 black>=22.0.0
-pylint>=2.15.0
+# pylint>=2.15.0
