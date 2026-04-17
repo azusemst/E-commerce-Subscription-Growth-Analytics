@@ -3,28 +3,26 @@ SQL Queries Module
 Store all production-level SQL queries here after validating them in Notebook 1
 """
 
-# TODO: 学生在此处填入 Notebook 1 中验证过的 RFM 计算 SQL
 # 该查询应使用 CTE 和 NTILE 窗口函数，计算每个用户的 R(Recency), F(Frequency), M(Monetary)
 RFM_CALCULATION_QUERY = """
 WITH user_purchase_stats AS (
     SELECT 
-        customer_id,
-        MAX(order_date) as last_purchase_date,
+        customer_unique_id,
+        MAX(order_purchase_timestamp) as last_purchase_date,
         COUNT(DISTINCT order_id) as purchase_count,
-        SUM(total_amount) as total_monetary
-    FROM orders
-    GROUP BY customer_id
+        SUM(price) as total_monetary
+    FROM merged
+    GROUP BY customer_unique_id
 ),
 rfm_scores AS (
     SELECT 
-        customer_id,
+        customer_unique_id,
         last_purchase_date,
         purchase_count,
         total_monetary,
-        -- TODO: 使用 NTILE 或类似窗口函数划分 R, F, M 的等级（1-5分）
-        -- NTILE(5) OVER (ORDER BY last_purchase_date) as recency_score,
-        -- NTILE(5) OVER (ORDER BY purchase_count DESC) as frequency_score,
-        -- NTILE(5) OVER (ORDER BY total_monetary DESC) as monetary_score
+        NTILE(5) OVER (ORDER BY last_purchase_date) as recency_score,
+        NTILE(5) OVER (ORDER BY purchase_count DESC) as frequency_score,
+        NTILE(5) OVER (ORDER BY total_monetary DESC) as monetary_score
     FROM user_purchase_stats
 )
 SELECT * FROM rfm_scores;
